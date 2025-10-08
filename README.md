@@ -1,1 +1,1 @@
-# SMC-Sense
+# SMC-Election-private
