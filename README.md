@@ -77,6 +77,8 @@ println("Running on ", Threads.nthreads(), " threads.")
 cd("[ your chosen directory ] /SMC-Sense")
 ```
 
+7. Place [The Economist 2020 repo](https://github.com/TheEconomist/us-potus-model) and place as `SMC-Sense/us-potus-model-copied`
+
 ---
 
 ## System notes
