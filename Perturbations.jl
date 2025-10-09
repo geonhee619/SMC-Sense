@@ -1,13 +1,17 @@
 function return_LogDensities(data_vec::Vector{typeof(data_0)})::Vector{LogDensity}
+    
+    DIR = joinpath("input", "tmp")
+    isdir(DIR) || mkpath(DIR) # Ensure path is present
+    
     models = StanModel[]
     @showprogress for (ℓ, data_1) in enumerate(data_vec)
         # Save data-JSON and model-Stan for later use
-        _name = joinpath("Julia", "tmp", "data_$(RUN)_$(ℓ).json")
+        _name = joinpath("input", "tmp", "data_$(RUN)_$(ℓ).json")
         open(_name, "w") do f
             JSON.print(f, data_1) 
         end
         model_1 = StanModel(
-            joinpath("us-potus-model-copied", "Julia", "poll_model_2020.stan"),
+            joinpath("input", "poll_model_2020.stan"),
             _name,
             SEED
         )

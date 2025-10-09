@@ -22,7 +22,7 @@ ProgressMeter.ijulia_behavior(:clear)
 SEED = 1843 # from original code
 START, END = Date("2016-03-01"), Date("2016-11-09")
 RUN = END - Day(90)
-RUN_MCMC = false
+RUN_MCMC = true#false
 
 abbrev2full = Dict(
     "AK" => "Alaska", "AL" => "Alabama", "AR" => "Arkansas", "AZ" => "Arizona", "CA" => "California",
@@ -65,22 +65,14 @@ int2abbrev = Dict(
 )
 abbrev2int = Dict(v => k for (k, v) in int2abbrev)
 
-df = CSV.read(joinpath("us-potus-model-copied", "Julia", "df_$(RUN).csv"), DataFrame);
+df = CSV.read(joinpath("input", "df_$(RUN).csv"), DataFrame);
 
-data_0 = JSON.parsefile(joinpath("us-potus-model-copied", "Julia", "data_$(RUN).json"))
+data_0 = JSON.parsefile(joinpath("input", "data_$(RUN).json"))
 model_0 = StanModel(
-    joinpath("us-potus-model-copied", "Julia", "poll_model_2020.stan"),
-    joinpath("us-potus-model-copied", "Julia", "data_$(RUN).json"),
+    joinpath("input", "poll_model_2020.stan"),
+    joinpath("input", "data_$(RUN).json"),
     SEED
 );
-
-draws_0 = load(joinpath("Julia", "draws_$(RUN).jld"))["data"]
-draws_0 = NamedArray(
-    draws_0,
-    (axes(draws_0,1), param_unc_names(model_0)),
-    (:r, :d),
-)
-stats_0 = CSV.read(joinpath("Julia", "stats-df_$(RUN).csv"), DataFrame)
 
 include("Functions.jl")
 include("Perturbations.jl")

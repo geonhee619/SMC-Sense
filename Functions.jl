@@ -38,7 +38,7 @@ function save_SMC(results, perturb_i::String)
         times
     ) = results
     
-    DIR = joinpath("output", perturb_i, "smc-4")
+    DIR = joinpath("output", perturb_i, "smc")
     isdir(DIR) || mkpath(DIR) # Ensure path is present
     
     save(joinpath(DIR, "particles.jld"), "data", particles .|> Matrix |> Vector) # [L][N,D]
