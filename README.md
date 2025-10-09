@@ -21,16 +21,14 @@ Han, G., Gelman, A., and Vehtari A. (2025) **"Efficient scenario analysis in rea
 
 ## Contents
 
-- `MCMC.ipynb -> SMC.ipynb -> Figures.ipynb`: Jupyter notebooks to be run in Julia (1.10.4, 4-thread multi-threading) top-to-bottom for baseline MCMC-based posterior computation, the sequential sampling scheme, and figure generation.
+- `MCMC.ipynb -> SMC.ipynb`: Jupyter notebooks to be run in Julia (1.10.4, 4-thread multi-threading) top-to-bottom for baseline MCMC-based posterior computation, the sequential sampling scheme, and figure generation.
 - `Julia/`: Saves outputs from `MCMC.ipynb` (as input for `SMC.ipynb`).
 - `output/`: Saves results from `SMC.ipynb`.
 - `img/`: Generated figures in the paper.
 <!-- 
 - `output_[session datetime]/` and  `img_[session datetime]/`: Newly generated files will be saved here.
--->
 
 > **Note:** Large outputs in `Julia/` and `output/` are not in [this repository](https://github.com/geonhee619/SMC-Sense) directly due to size.
-<!-- 
 [here (Google Drive)](https://drive.google.com/drive/folders/1spxia_wttH-xAH6hBw14zQkr_q6QofMK?usp=sharing)
 -->
 
