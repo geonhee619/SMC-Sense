@@ -19,10 +19,13 @@ _quantile(_mat; dims::Int64, α::Float64) = dropdims(mapslices(_vec -> quantile(
 default(size=(500,200), legend=false, tick_direction=:out, dpi=300)
 ProgressMeter.ijulia_behavior(:clear)
 
-SEED = 1843 # from original code
+SEED = 1843 # from original TheEconomist repo
 START, END = Date("2016-03-01"), Date("2016-11-09")
 RUN = END - Day(90)
-RUN_MCMC = true#false
+RUN_MCMC = true
+
+# Tag by timestamp
+SESSION = Dates.format(now(), "yyyy-mm-dd-HH-MM-SS");
 
 abbrev2full = Dict(
     "AK" => "Alaska", "AL" => "Alabama", "AR" => "Arkansas", "AZ" => "Arizona", "CA" => "California",
