@@ -39,4 +39,4 @@ output/
 #output/*/mcmc
 #output/*/smc/particles.jld
 
-*.exe
+input/*.exe
