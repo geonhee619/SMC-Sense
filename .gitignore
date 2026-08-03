@@ -36,5 +36,3 @@ input/tmp/
 input/draws_2016-08-11.jld
 
 output/
-#output/*/mcmc
-#output/*/smc/particles.jld
