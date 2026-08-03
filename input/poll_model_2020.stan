@@ -44,6 +44,10 @@ data{
   real random_walk_scale;
   real mu_b_T_scale;
   real polling_bias_scale;
+
+  // perturbation inputs
+  vector[S] polling_bias_loc;
+  vector[P] mu_c_loc;
 }
 
 transformed data {
@@ -81,7 +85,8 @@ transformed parameters {
   vector[M] mu_m;
   vector[Pop] mu_pop;
   vector[T] e_bias;
-  vector[S] polling_bias = cholesky_ss_cov_poll_bias * raw_polling_bias;
+  // vector[S] polling_bias = cholesky_ss_cov_poll_bias * raw_polling_bias;
+  vector[S] polling_bias = cholesky_ss_cov_poll_bias * raw_polling_bias + polling_bias_loc;
   vector[T] national_mu_b_average;
   real national_polling_bias_average = transpose(polling_bias) * state_weights;
   real sigma_rho;
@@ -92,7 +97,8 @@ transformed parameters {
   mu_b[:,T] = cholesky_ss_cov_mu_b_T * raw_mu_b_T + mu_b_prior;  // * mu_b_T_model_estimation_error 
   for (i in 1:(T-1)) mu_b[:, T - i] = cholesky_ss_cov_mu_b_walk * raw_mu_b[:, T - i] + mu_b[:, T + 1 - i];
   national_mu_b_average = transpose(mu_b) * state_weights;
-  mu_c = raw_mu_c * sigma_c;
+  // mu_c = raw_mu_c * sigma_c;
+  mu_c = raw_mu_c * sigma_c + mu_c_loc;
   mu_m = raw_mu_m * sigma_m;
   mu_pop = raw_mu_pop * sigma_pop;
   e_bias[1] = raw_e_bias[1] * sigma_e_bias;
