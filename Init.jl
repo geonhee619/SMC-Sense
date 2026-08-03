@@ -14,18 +14,18 @@ _round(_x::Float64)::Float64 = round(_x; digits=3)
 _sum(_M; dims::Int64) = dropdims(sum(_M; dims=dims); dims=dims)
 _mean(_M; dims::Int64) = dropdims(mean(_M; dims=dims); dims=dims)
 _var(_M; dims::Int64) = dropdims(var(_M; dims=dims); dims=dims)
+_std(_M; dims::Int64) = dropdims(var(_M; dims=dims); dims=dims)
 _quantile(_mat; dims::Int64, α::Float64) = dropdims(mapslices(_vec -> quantile(_vec, α), _mat; dims=dims); dims=dims)
 
 default(size=(500,200), legend=false, tick_direction=:out, dpi=300)
 ProgressMeter.ijulia_behavior(:clear)
 
-SEED = 1843 # from original TheEconomist repo
-START, END = Date("2016-03-01"), Date("2016-11-09")
-RUN = END - Day(90)
-RUN_MCMC = true
-
 # Tag by timestamp
 SESSION = Dates.format(now(), "yyyy-mm-dd-HH-MM-SS");
+
+SEED = 1843 # from original TheEconomist repo
+START, END = Date("2016-03-01"), Date("2016-11-09")
+RUN_MCMC = false
 
 abbrev2full = Dict(
     "AK" => "Alaska", "AL" => "Alabama", "AR" => "Arkansas", "AZ" => "Arizona", "CA" => "California",
@@ -67,17 +67,15 @@ int2abbrev = Dict(
    51 => "WY"
 )
 abbrev2int = Dict(v => k for (k, v) in int2abbrev)
-
-df = CSV.read(joinpath("input", "df_$(RUN).csv"), DataFrame);
-
-data_0 = JSON.parsefile(joinpath("input", "data_$(RUN).json"))
-model_0 = StanModel(
-    joinpath("input", "poll_model_2020.stan"),
-    joinpath("input", "data_$(RUN).json"),
-    SEED
-);
-
-include("Functions.jl")
-include("Perturbations.jl")
+abbrev2loc = Dict(
+    "HI" => (1, 1), "TX" => (5, 1), "FL" => (10, 1),
+    "AK" => (1, 2), "OK" => (5, 2), "LA" => (6, 2), "MS" => (7, 2), "AL" => (8, 2), "GA" => (9, 2),
+    "AZ" => (3, 3), "NM" => (4, 3), "KS" => (5, 3), "AR" => (6, 3), "TN" => (7, 3), "NC" => (8, 3), "SC" => (9, 3), "DC" => (10, 3),
+    "CA" => (2, 4), "UT" => (3, 4), "CO" => (4, 4), "NE" => (5, 4), "MO" => (6, 4), "KY" => (7, 4), "WV" => (8, 4), "VA" => (9, 4), "MD" => (10, 4), "DE" => (11, 4),
+    "OR" => (2, 5), "NV" => (3, 5), "WY" => (4, 5), "SD" => (5, 5), "IA" => (6, 5), "IN" => (7, 5), "OH" => (8, 5), "PA" => (9, 5), "NJ" => (10, 5), "CT" => (11, 5), "RI" => (12, 5),
+    "WA" => (2, 6), "ID" => (3, 6), "MT" => (4, 6), "ND" => (5, 6), "MN" => (6, 6), "IL" => (7, 6), "MI" => (8, 6), "NY" => (10, 6), "MA" => (11, 6),
+    "WI" => (7, 7), "VT" => (11, 7), "NH" => (12, 7),
+    "ME" => (12, 8),
+)
 
 ;

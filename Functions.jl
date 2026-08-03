@@ -13,7 +13,8 @@ function run_MCMC(ℓπ::LogDensity)
     metric = DiagEuclideanMetric(D)
     hamiltonian = Hamiltonian(metric, ℓπ)
     
-    n_samples, n_adapts, thin = 1_200 * 3, 200, 3
+    n_samples, n_adapts, thin = 1_200 * 3, 200 * 3, 3
+    #n_samples, n_adapts, thin = 100, 10, 1
     
     initial_θ = rand(Uniform(-1,1), D)
     initial_ϵ = find_good_stepsize(hamiltonian, initial_θ)
@@ -52,26 +53,68 @@ function save_SMC(results, perturb_i::String)
 end
 
 function load_SMC(perturb_i::String)
-
+    
     ℓπ_vec, names_vec, D_vec = nothing, nothing, nothing
+    
     if perturb_i == "1"
         ℓπ_vec = perturb_1(s="CA") |> return_LogDensities
     elseif perturb_i == "1-neg"
         ℓπ_vec = perturb_1(s="CA", negative=true) |> return_LogDensities
+    
     elseif perturb_i == "2"
         ℓπ_vec = perturb_2() |> return_LogDensities
     elseif perturb_i == "2-neg"
         ℓπ_vec = perturb_2(negative=true) |> return_LogDensities
+    
     elseif perturb_i == "3"
         ℓπ_vec = perturb_3() |> return_LogDensities
     elseif perturb_i == "3-inv"
         ℓπ_vec = perturb_3(inverse=true) |> return_LogDensities
+    
     elseif perturb_i == "4"
         ℓπ_vec = perturb_4(30;
             state="PA", n_dem=300, n=600, date=RUN + Day(10),
             poll_mode=1, poll_pop_state=3, pollster="NBC"
         ) |> return_LogDensities
+    
+    elseif perturb_i == "5"
+        ℓπ_vec = perturb_5() |> return_LogDensities
+    elseif perturb_i == "5-neg"
+        ℓπ_vec = perturb_5(negative=true) |> return_LogDensities
+    
+    elseif perturb_i == "7"
+        ℓπ_vec = perturb_7() |> return_LogDensities
+    elseif perturb_i == "7-neg"
+        ℓπ_vec = perturb_7(negative=true) |> return_LogDensities
+    
+    elseif occursin("8_", perturb_i)
+        i_str, state_str, pollster_str = split(perturb_i, "_")
+        state = split(state_str, "-")[end] |> String
+        pollster = split(pollster_str, "-")[end] |> String
+        if occursin("neg", perturb_i)
+            aiueo
+        else
+            data_vec_a = perturb_8(state=state, pollster=pollster)
+            data_vec_b = perturb_9(data_vec_a[end])
+            ℓπ_vec = typeof(data_0)[data_vec_a; data_vec_b] |> return_LogDensities
+        end
+
+    elseif occursin("9_", perturb_i)
+        i_str, state_str, pollster_str = split(perturb_i, "_")
+        state = split(state_str, "-")[end] |> String
+        pollster = split(pollster_str, "-")[end] |> String
+        if occursin("neg", perturb_i)
+            aiueo
+        else
+            data_vec_a = perturb_8(state=state, pollster=pollster)
+            ℓπ_vec = typeof(data_0)[data_vec_a; ] |> return_LogDensities
+        end
+    
+    else
+        aiueo
+    
     end
+    
     L = length(ℓπ_vec) - 1
     ℓπ_vec      = NamedArray(ℓπ_vec,                                       0:L, :l)
     names_vec   = NamedArray([param_unc_names(ℓπ.model) for ℓπ in ℓπ_vec], 0:L, :l)
