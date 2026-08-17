@@ -37,13 +37,13 @@ This is the README.md for the repository containing computer code, output files,
 - `output/`: Save results from `SMC.ipynb`.
 - `img/`: Generated figures in the paper.
 
-> **Note:** Large outputs are not in [this repository](https://github.com/geonhee619/SMC-Sense) directly due to size: see [here (Google Drive)](https://drive.google.com/drive/folders/1sHbwj0UKTK6lTPzqcdQSTtpz5_X9lO3_?usp=sharing).
+> **Note:** Large inputs/outputs are not in [this repository](https://github.com/geonhee619/SMC-Sense) directly due to size: see [here (Google Drive)](https://drive.google.com/drive/folders/1sHbwj0UKTK6lTPzqcdQSTtpz5_X9lO3_?usp=sharing).
 
 ---
 
 ## Instructions (Local JupyterLab on Windows)
 
-1. Download [SMC-Sense (Google Drive)](https://drive.google.com/drive/folders/1sHbwj0UKTK6lTPzqcdQSTtpz5_X9lO3_?usp=sharing) (with large outputs).
+1. Download and replace the input folder with the complete input folder (`input/`): from [SMC-Sense (Google Drive)](https://drive.google.com/drive/folders/1sHbwj0UKTK6lTPzqcdQSTtpz5_X9lO3_?usp=sharing). To also replicate the figures, do the same with the output folder  (`output/`).
 
 2. Download/install **Julia v1.10.4**
    - Link: [https://julialang.org/downloads/oldreleases/](https://julialang.org/downloads/oldreleases/#:~:text=bf8f45f85d7c615f01aa46db427c2435b397ec58f2c7ee6d4b0785481a747d98-,v1.10.4,-%2C%20on%202024%2D06)
@@ -84,9 +84,9 @@ cd("[ your chosen directory ] /SMC-Sense")
 
 ## Execution flow
 
-1. Make sure large input/output files (especially those under `{input, output}/`) have been downloaded from [SMC-Sense (Google Drive)](https://drive.google.com/drive/folders/1sHbwj0UKTK6lTPzqcdQSTtpz5_X9lO3_?usp=sharing).
+1. Make sure large input files (under `input/`) have been downloaded from [SMC-Sense (Google Drive)](https://drive.google.com/drive/folders/1sHbwj0UKTK6lTPzqcdQSTtpz5_X9lO3_?usp=sharing).
 2. (Optional: Run `MCMC.ipynb` to (a) generate _baseline_ draws (under `input/`) and (b) bruteforce draws for reference (under `output/*/mcmc/`).)
-3. Run `SMC.ipynb` to (b') use _baseline_ draws for sequential sampling (under `output/*/smc/`) and (c) generate figures (under `img/`).
+3. Run `SMC.ipynb` to (a') use _baseline_ draws for sequential sampling (saved under `output/*/smc/`) and (c) generate figures (under `img/`). For (c), make sure large output files (under `output/`) have also been downloaded.
 
 ---
 
