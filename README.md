@@ -1,9 +1,11 @@
 # SMC-Sense
 
-This is the [README.md](https://github.com/geonhee619/SMC-Sense/blob/main/README.md) for the repository containing computer code, output files, and figures for the paper:
+This is the README.md for the repository containing computer code, output files, and figures for the paper:
 
-Han, G., Gelman, A., and Vehtari A. (2025) **"Efficient scenario analysis in real-time Bayesian election forecasting via sequential meta-posterior sampling"**. [https://arxiv.org/abs/2510.19133](https://arxiv.org/abs/2510.19133)
+<!-- Han, G., Gelman, A., and Vehtari A. (2025) **"Efficient scenario analysis in real-time Bayesian election forecasting via sequential meta-posterior sampling"**. [https://arxiv.org/abs/2510.19133](https://arxiv.org/abs/2510.19133) -->
+**"Efficient scenario analysis in real-time Bayesian election forecasting via sequential meta-posterior sampling"**.
 
+<!-- 
 ```bibtex
 @misc{HanGelmanVehtari2025,
   title={Efficient scenario analysis in real-time Bayesian election forecasting via sequential meta-posterior sampling},
@@ -15,6 +17,7 @@ Han, G., Gelman, A., and Vehtari A. (2025) **"Efficient scenario analysis in rea
   url={https://arxiv.org/abs/2510.19133}
 }
 ```
+-->
 
 ---
 
