@@ -14,7 +14,7 @@ function run_MCMC(ℓπ::LogDensity)
     hamiltonian = Hamiltonian(metric, ℓπ)
     
     n_samples, n_adapts, thin = 1_200 * 3, 200 * 3, 3
-    #n_samples, n_adapts, thin = 100, 10, 1
+    #n_samples, n_adapts, thin = 10, 5, 1
     
     initial_θ = rand(Uniform(-1,1), D)
     initial_ϵ = find_good_stepsize(hamiltonian, initial_θ)
@@ -39,7 +39,7 @@ function save_SMC(results, perturb_i::String)
         times
     ) = results
     
-    DIR = joinpath("output", perturb_i, "smc")
+    DIR = joinpath("output_$(SESSION)", perturb_i, "smc")
     isdir(DIR) || mkpath(DIR) # Ensure path is present
     
     save(joinpath(DIR, "particles.jld"), "data", particles .|> Matrix |> Vector) # [L][N,D]

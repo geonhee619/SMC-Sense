@@ -7,7 +7,7 @@ model_0 = StanModel(
     SEED
 )
 
-int2ev = CSV.read(joinpath("us-potus-model-copied", "data", "2012.csv"), DataFrame)
+int2ev = CSV.read(joinpath("input", "2012.csv"), DataFrame)
 int2ev = [filter(row -> row.state == int2abbrev[s_i], int2ev).ev[1] for s_i in 1:data_0["S"]]
 
 include("Functions.jl")

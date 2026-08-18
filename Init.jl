@@ -20,8 +20,8 @@ _quantile(_mat; dims::Int64, α::Float64) = dropdims(mapslices(_vec -> quantile(
 default(size=(500,200), legend=false, tick_direction=:out, dpi=300)
 ProgressMeter.ijulia_behavior(:clear)
 
-# Tag by timestamp
-SESSION = Dates.format(now(), "yyyy-mm-dd-HH-MM-SS");
+# Tag by anything convenient
+SESSION = "new" # Dates.format(now(), "yyyy-mm-dd-HH-MM-SS");
 
 SEED = 1843 # from original TheEconomist repo
 START, END = Date("2016-03-01"), Date("2016-11-09")
